@@ -1,4 +1,4 @@
-const { MinBinaryHeap } = require('../modules')
+const { MinBinaryHeap } = require('../src')
 
 describe('MinBinaryHeap', () => {
   test('creates a new instance of MinBinaryHeap', () => {

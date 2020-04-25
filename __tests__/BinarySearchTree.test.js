@@ -1,4 +1,4 @@
-const { BinarySearchTree } = require('../modules')
+const { BinarySearchTree } = require('../src')
 
 test('creates a new instance of BinarySearchTree', () => {
   const bst = new BinarySearchTree()
@@ -19,7 +19,7 @@ describe('insert', () => {
     const root = {
       val: 3,
       left: { val: 1, left: null, right: null },
-      right: null
+      right: null,
     }
     expect(bst.root).toEqual(root)
   })
@@ -82,13 +82,13 @@ describe('scoped bst tree', () => {
           left: {
             val: 2,
             left: { val: 0, left: null, right: null },
-            right: null
+            right: null,
           },
           right: {
             val: 5,
             left: { val: 4, left: null, right: null },
-            right: { val: 6, left: null, right: null }
-          }
+            right: { val: 6, left: null, right: null },
+          },
         }
       bst.remove(valToRemove)
 
@@ -101,13 +101,13 @@ describe('scoped bst tree', () => {
           left: {
             val: 1,
             left: { val: 0, left: null, right: null },
-            right: { val: 2, left: null, right: null }
+            right: { val: 2, left: null, right: null },
           },
           right: {
             val: 5,
             left: { val: 4, left: null, right: null },
-            right: { val: 6, left: null, right: null }
-          }
+            right: { val: 6, left: null, right: null },
+          },
         }
       bst.remove(valToRemove)
 

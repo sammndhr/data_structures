@@ -1,4 +1,4 @@
-const { Stack } = require('../modules')
+const { Stack } = require('../src')
 
 test('creates a new instance of Stack', () => {
   const stack = new Stack()

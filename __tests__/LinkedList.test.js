@@ -1,4 +1,4 @@
-const { LinkedList } = require('../modules')
+const { LinkedList } = require('../src')
 
 describe('head, tail, size, print, search', () => {
   const ll = new LinkedList(),

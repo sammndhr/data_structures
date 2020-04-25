@@ -1,4 +1,4 @@
-const { Queue } = require('../modules')
+const { Queue } = require('../src')
 
 test('creates a new instance of Queue', () => {
   const queue = new Queue()

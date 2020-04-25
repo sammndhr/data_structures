@@ -1,5 +1,5 @@
-const { BFS, DFSIterative, DFSRecursive } = require('../modules').GraphTraversal
-const { Graph } = require('../modules')
+const { BFS, DFSIterative, DFSRecursive } = require('../src').GraphTraversal
+const { Graph } = require('../src')
 
 describe('scoped bst tree', () => {
   let g

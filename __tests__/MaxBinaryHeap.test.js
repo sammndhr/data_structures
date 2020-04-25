@@ -1,4 +1,4 @@
-const { MaxBinaryHeap } = require('../modules')
+const { MaxBinaryHeap } = require('../src')
 
 describe('MaxBinaryHeap', () => {
   test('creates a new instance of MaxBinaryHeap', () => {

@@ -1,4 +1,4 @@
-const { HashTable } = require('../modules')
+const { HashTable } = require('../src')
 
 test('gets correct value from table', () => {
   const hash = new HashTable(10)

@@ -1,5 +1,5 @@
-const { BFS, DFSIterative, DFSRecursive } = require('../modules').TreeTraversal
-const { BinarySearchTree } = require('../modules')
+const { BFS, DFSIterative, DFSRecursive } = require('../src').TreeTraversal
+const { BinarySearchTree } = require('../src')
 
 describe('scoped bst tree', () => {
   let bst

@@ -1,4 +1,4 @@
-const { Graph } = require('../modules')
+const { Graph } = require('../src')
 
 test('creates a new instance of Graph', () => {
   const g = new Graph()

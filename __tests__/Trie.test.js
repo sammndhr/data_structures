@@ -1,4 +1,4 @@
-const { Trie } = require('../modules')
+const { Trie } = require('../src')
 
 test('creates a new instance of Trie', () => {
   const trie = new Trie()
@@ -9,8 +9,8 @@ test('gets root of trie', () => {
   const trie = new Trie(),
     root = {
       s: {
-        o: { m: { e: { t: { h: { i: { n: { g: { isWord: true } } } } } } } }
-      }
+        o: { m: { e: { t: { h: { i: { n: { g: { isWord: true } } } } } } } },
+      },
     }
   trie.insert('something')
   expect(trie.root).toEqual(root)
@@ -22,8 +22,8 @@ describe('insert', () => {
       root = {
         s: {
           o: { m: { e: { t: { h: { i: { n: { g: { isWord: true } } } } } } } },
-          p: { y: { isWord: true } }
-        }
+          p: { y: { isWord: true } },
+        },
       }
     trie.insert('something')
     trie.insert('spy')
