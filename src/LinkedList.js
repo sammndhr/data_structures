@@ -31,6 +31,15 @@ const LinkedList = (function () {
       return this.#size
     }
 
+    get tail() {
+      let curr = this.#head
+      if (!curr) return null
+      while (curr.next) {
+        curr = curr.next
+      }
+      return curr
+    }
+
     fromArray(array) {
       for (const val of array) {
         this.appendToTail(val)
@@ -157,15 +166,6 @@ const LinkedList = (function () {
       }
       console.log(result)
       return result
-    }
-
-    getTail() {
-      let curr = this.#head
-      if (!curr) return null
-      while (curr.next) {
-        curr = curr.next
-      }
-      return curr
     }
   }
   return LinkedList

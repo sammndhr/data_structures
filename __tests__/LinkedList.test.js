@@ -10,7 +10,7 @@ describe('head, tail, size, print, search', () => {
   })
 
   test('gets tail of linked list', () => {
-    expect(ll.getTail()).toEqual({ val: 3, next: null })
+    expect(ll.tail).toEqual({ val: 3, next: null })
   })
 
   test('does not mutate head of linked list', () => {
