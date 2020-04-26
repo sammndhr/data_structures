@@ -9,10 +9,16 @@ const Queue = (function () {
   class Queue {
     #first
     #last
+    #size
     //Look in ./LinkedList.js to see other ways of declaring private static fields https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Class_fields#Private_fields
     constructor() {
       this.#first = null
       this.#last = null
+      this.#size = 0
+    }
+
+    get size() {
+      return this.#size
     }
 
     enqueue(item) {
@@ -23,6 +29,7 @@ const Queue = (function () {
       this.#last = node
 
       if (!this.#first) this.#first = this.#last
+      this.#size++
     }
 
     dequeue() {
@@ -30,6 +37,7 @@ const Queue = (function () {
       const data = this.#first.data
       this.#first = this.#first.next
       if (!this.#first) this.#last = null
+      this.#size--
       return data
     }
 

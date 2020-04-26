@@ -5,6 +5,15 @@ test('creates a new instance of Queue', () => {
   expect(queue instanceof Queue).toBe(true)
 })
 
+describe('size', () => {
+  test('gets size of queue', () => {
+    const queue = new Queue()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    expect(queue.size).toBe(2)
+  })
+})
+
 describe('printQueue', () => {
   test('prints all items of queue as an array', () => {
     const queue = new Queue()
