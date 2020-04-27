@@ -46,6 +46,18 @@ const LinkedList = (function () {
       }
     }
 
+    toArray() {
+      const result = []
+      let curr = this.#head
+
+      while (curr) {
+        result.push(curr.val)
+        curr = curr.next
+      }
+
+      return result
+    }
+
     // T — O(1)
     prependToHead(val) {
       const node = new ListNode(val)
@@ -157,13 +169,7 @@ const LinkedList = (function () {
     }
 
     printList() {
-      const result = []
-      let curr = this.#head
-
-      while (curr) {
-        result.push(curr.val)
-        curr = curr.next
-      }
+      const result = this.toArray()
       console.log(result)
       return result
     }
