@@ -78,6 +78,9 @@ describe('delete from tail', () => {
       testList = [5, 3]
     ll.fromArray(testList)
     expect(ll.deleteFromTail()).toBe(3)
+    expect(ll.size).toBe(1)
+    expect(ll.deleteFromTail()).toBe(5)
+    expect(ll.size).toBe(0)
   })
 
   test('returns null if head is null', () => {

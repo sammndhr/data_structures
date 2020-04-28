@@ -107,6 +107,7 @@ const LinkedList = (function () {
       //Handle case of single node in linked list
       if (!curr.next) {
         this.#head = null
+        this.#size--
         return curr.val
       }
 
