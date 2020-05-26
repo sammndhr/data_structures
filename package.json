@@ -1,6 +1,6 @@
 {
   "name": "data_structures",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Data Structures. Extracted from https://github.com/mrinalini-m/data_structures_and_algorithms",
   "main": "./dist",
   "module": "./dist",
