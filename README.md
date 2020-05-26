@@ -14,3 +14,9 @@ Data Structures that I've coded. Extracted from https://github.com/mrinalini-m/d
 8. [x] Graph Traversal (DFS, BFS)
 9. [x] Trie
 10. [x] Binary Heap (Min, Max)
+
+## Testing
+
+Tests are written using and run by [Jest test framework](https://jestjs.io/).
+
+Run `npm run test` from root or sub folders to run tests.
