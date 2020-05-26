@@ -2,7 +2,7 @@
 
 Data Structures
 
-Data Structures that I've coded. Extracted from https://github.com/mrinalini-m/data_structures_and_algorithms.
+Data Structures that I've coded. Extracted from https://github.com/mrinalini-m/algorithms.
 
 1. [x] Hash Table
 2. [x] Linked List
