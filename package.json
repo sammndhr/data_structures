@@ -2,11 +2,12 @@
   "name": "data_structures",
   "version": "1.0.4",
   "description": "Data Structures. Extracted from https://github.com/mrinalini-m/data_structures_and_algorithms",
-  "main": "./dist/DataStructures.js",
-  "module": "./dist/DataStructures.js",
+  "main": "./dist",
+  "module": "./dist",
   "scripts": {
+    "prepare": "npm run build",
     "test": "jest",
-    "build": "webpack"
+    "build": "./node_modules/.bin/babel src --out-dir dist --presets=@babel/env --plugins=@babel/plugin-proposal-class-properties"
   },
   "repository": {
     "type": "git",
