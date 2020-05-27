@@ -5,7 +5,6 @@
   "main": "./dist",
   "module": "./dist",
   "scripts": {
-    "prepare": "npm run build",
     "test": "jest",
     "build": "./node_modules/.bin/babel src --out-dir dist"
   },

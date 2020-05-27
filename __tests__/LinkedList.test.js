@@ -14,8 +14,11 @@ describe('head, tail, size, print, search', () => {
   })
 
   test('does not mutate head of linked list', () => {
-    ll.head = null
-    expect(ll.head).toEqual({ val: 5, next: { val: 3, next: null } })
+    expect(() => {
+      ll.head = null
+    }).toThrow(
+      `Cannot set property head of #<LinkedList> which has only a getter`
+    )
   })
 
   test('gets size of linked list', () => {
