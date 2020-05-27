@@ -26,7 +26,10 @@ var GraphTraversal = require('./GraphTraversal');
 
 var Graph = require('./Graph');
 
+var DynamicArray = require('./DynamicArray');
+
 module.exports = _objectSpread(_objectSpread({
+  DynamicArray: DynamicArray,
   LinkedList: LinkedList,
   HashTable: HashTable,
   Stack: Stack,

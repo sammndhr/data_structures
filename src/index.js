@@ -8,8 +8,10 @@ const Trie = require('./Trie')
 const BinaryHeap = require('./BinaryHeap')
 const GraphTraversal = require('./GraphTraversal')
 const Graph = require('./Graph')
+const DynamicArray = require('./DynamicArray')
 
 module.exports = {
+  DynamicArray,
   LinkedList,
   HashTable,
   Stack,
