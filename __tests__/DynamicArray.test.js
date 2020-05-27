@@ -53,6 +53,13 @@ describe('pop', () => {
     expect(arr.pop()).toBe(2)
     expect(arr.array).toEqual([1])
   })
+
+  test('Returns undefined and does not change length if array length is 0', () => {
+    const arr = new DynamicArray()
+    expect(arr.pop()).toBe(undefined)
+    expect(arr.length).toBe(0)
+  })
+
   test('Decrements length of array', () => {
     const arr = new DynamicArray()
     arr.push(1, 2)
@@ -108,6 +115,39 @@ describe('set', () => {
     expect(arr.capacity).toEqual(1)
     arr.set(3, 'three')
     expect(arr.capacity).toEqual(4)
+  })
+})
+
+describe('delete', () => {
+  test('Deletes item at index if it exists', () => {
+    const arr = new DynamicArray()
+    arr.push(1, 2, 3, 4)
+    expect(arr.delete(3)).toBe(true)
+  })
+  test('Decrements length if deletion was successful', () => {
+    const arr = new DynamicArray()
+    arr.push(1, 2, 3, 4)
+
+    expect(arr.length).toBe(4)
+    expect(arr.delete(3)).toBe(true)
+    expect(arr.length).toBe(3)
+  })
+  test('Returns false if index is greater than or equal to length', () => {
+    const arr = new DynamicArray()
+    arr.push(1, 2, 3, 4)
+    expect(arr.delete(4)).toBe(false)
+    expect(arr.delete(5)).toBe(false)
+  })
+  test('Returns false if index is leass than 0', () => {
+    const arr = new DynamicArray()
+    arr.push(1, 2, 3, 4)
+    expect(arr.delete(-1)).toBe(false)
+  })
+  test('Does not change length of the array if deletion was unsuccessful', () => {
+    const arr = new DynamicArray()
+    arr.push(1, 2, 3, 4)
+    arr.delete(-1)
+    expect(arr.length).toBe(4)
   })
 })
 

@@ -9,9 +9,7 @@ class DynamicArray {
     this.#length = 0
   }
 
-  /* The static keyword defines a static method for a class. Static methods aren't called on instances of the class.
-   Instead, they're called on the class itself. These are often utility functions, such as functions to create or clone objects.
-   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static */
+  /* The static keyword defines a static method for a class. Static methods aren't called on instances of the class. Instead, they're called on the class itself. These are often utility functions, such as functions to create or clone objects. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static */
   static #copyArray(array, capacity, length) {
     const resArr = new Array(capacity)
     for (let i = 0; i < length; i++) {
@@ -53,6 +51,7 @@ class DynamicArray {
   }
 
   pop() {
+    if (this.#length <= 0) return
     const popped = this.#array[this.#length - 1]
     delete this.#array[this.#length - 1]
     this.#length--
@@ -80,7 +79,18 @@ class DynamicArray {
     return val
   }
 
-  // getter
+  delete(index) {
+    if (index >= 0 && index < this.#length && this.#length > 0) {
+      for (let i = index; i < this.#length; i++) {
+        this.#array[i] = this.#array[i + 1]
+      }
+      this.#length--
+      return true
+    }
+    return false
+  }
+
+  // getters
   get array() {
     const resArr = DynamicArray.#copyArray(
       this.#array,

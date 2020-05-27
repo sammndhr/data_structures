@@ -17,8 +17,6 @@ function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = p
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var LinkedList = function () {
-  // const head = Symbol('head') //To keep head as private in linked list
-  // const size = Symbol('size')
   var ListNode = function ListNode(val) {
     var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
@@ -43,12 +41,11 @@ var LinkedList = function () {
         value: void 0
       });
 
-      // The head and size property shouldn't be modifiable outside the class. So there should only be a getter. Class fields aren't supported by a lot of browsers. Use symbol instead to create private class variables if you're not using babel.
+      /* The head and size property shouldn't be modifiable outside the class. So there should only be a getter.
+      Class fields aren't supported by a lot of browsers. Use symbol instead to create private class variables if you're not using babel. */
       _classPrivateFieldSet(this, _head, null);
 
-      _classPrivateFieldSet(this, _size, 0); // this[head] = null
-      // this[size] = 0
-
+      _classPrivateFieldSet(this, _size, 0);
     } //getters
 
 

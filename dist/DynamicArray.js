@@ -49,9 +49,7 @@ var DynamicArray = /*#__PURE__*/function () {
 
     _classPrivateFieldSet(this, _length, 0);
   }
-  /* The static keyword defines a static method for a class. Static methods aren't called on instances of the class.
-   Instead, they're called on the class itself. These are often utility functions, such as functions to create or clone objects.
-   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static */
+  /* The static keyword defines a static method for a class. Static methods aren't called on instances of the class. Instead, they're called on the class itself. These are often utility functions, such as functions to create or clone objects. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static */
 
 
   _createClass(DynamicArray, [{
@@ -85,6 +83,8 @@ var DynamicArray = /*#__PURE__*/function () {
     value: function pop() {
       var _this$length2;
 
+      if (_classPrivateFieldGet(this, _length) <= 0) return;
+
       var popped = _classPrivateFieldGet(this, _array)[_classPrivateFieldGet(this, _length) - 1];
 
       delete _classPrivateFieldGet(this, _array)[_classPrivateFieldGet(this, _length) - 1];
@@ -117,7 +117,23 @@ var DynamicArray = /*#__PURE__*/function () {
       _classPrivateFieldGet(this, _array)[index] = val;
       if (_classPrivateFieldGet(this, _length) < index + 1) _classPrivateFieldSet(this, _length, index + 1);
       return val;
-    } // getter
+    }
+  }, {
+    key: "delete",
+    value: function _delete(index) {
+      if (index >= 0 && index < _classPrivateFieldGet(this, _length) && _classPrivateFieldGet(this, _length) > 0) {
+        var _this$length3;
+
+        for (var i = index; i < _classPrivateFieldGet(this, _length); i++) {
+          _classPrivateFieldGet(this, _array)[i] = _classPrivateFieldGet(this, _array)[i + 1];
+        }
+
+        _classPrivateFieldSet(this, _length, (_this$length3 = +_classPrivateFieldGet(this, _length)) - 1), _this$length3;
+        return true;
+      }
+
+      return false;
+    } // getters
 
   }, {
     key: "array",

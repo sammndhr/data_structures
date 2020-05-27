@@ -1,7 +1,4 @@
 const LinkedList = (function () {
-  // const head = Symbol('head') //To keep head as private in linked list
-  // const size = Symbol('size')
-
   class ListNode {
     constructor(val, next = null) {
       this.val = val
@@ -15,11 +12,10 @@ const LinkedList = (function () {
     #size
 
     constructor() {
-      // The head and size property shouldn't be modifiable outside the class. So there should only be a getter. Class fields aren't supported by a lot of browsers. Use symbol instead to create private class variables if you're not using babel.
+      /* The head and size property shouldn't be modifiable outside the class. So there should only be a getter.
+      Class fields aren't supported by a lot of browsers. Use symbol instead to create private class variables if you're not using babel. */
       this.#head = null
       this.#size = 0
-      // this[head] = null
-      // this[size] = 0
     }
 
     //getters
