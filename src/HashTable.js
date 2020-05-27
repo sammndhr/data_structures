@@ -32,6 +32,8 @@ class HashTable {
     for (const pair of this.buckets[i]) {
       if (pair[0] === key) return pair[1]
     }
+    // if key doesn't exist return null
+    return null
   }
 }
 module.exports = HashTable
