@@ -16,6 +16,11 @@ Data Structures that I've coded. Extracted from https://github.com/mrinalini-m/a
 10. [x] Trie
 11. [x] Binary Heap (Min, Max)
 
+## Usage
+
+1. To do a quick check for a test case in a particular file, run `npx babel-node src/FileName.js` from root.
+2. Files with private class properties don't require babel to transpile them and `node src/FileName.js` will run them without errors but some files with private class methods do require babel.
+
 ## Testing
 
 Tests are written using and run by [Jest test framework](https://jestjs.io/).
