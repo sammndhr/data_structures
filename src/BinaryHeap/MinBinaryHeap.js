@@ -47,34 +47,37 @@ class MinBinaryHeap {
       }
     }
   }
-
+  /* sinkDown
+    1. Check the minimum value between the parent, left child and right child. 
+    2. If parent is the min, you don't need to sink it down anymore. 
+    3. If either child is minimum, swap the parent with the minimum child.
+    4. Set the parent index to the child's index and continue to sink down the new parent. 
+  */
   #sinkDown(p) {
     const element = this.#content[p],
       lastIndex = this.#content.length - 1
 
     while (p < lastIndex) {
-      // Info in getting index in bubbleUp
       const r = 2 * p + 2,
         l = r - 1 //Or 2 * p + 1
 
       let swapIndex = null,
-        left,
-        right,
+        left = this.#content[l],
+        right = this.#content[r],
         min = element //start out assuming the min between left, right, element is the element
-      // if element has left child, compare
-      // if left child < element, set swapIndex to the left index (l) and min to left
-      if (l <= lastIndex) {
-        left = this.#content[l]
 
-        if (left < element) swapIndex = l
+      // if left child < element, set swapIndex to the left index (l) and min to left
+      if (left < element) {
+        // Don't need to check if left is undefined because undefined < number is always false
+        swapIndex = l
         min = left
       }
 
-      if (r <= lastIndex) {
-        right = this.#content[r]
-        // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
-        if (right < min) swapIndex = r
+      // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
+      if (right < min) {
+        swapIndex = r
       }
+
       // parent is smaller than both left and right child so break
       if (swapIndex == null) break
 
@@ -117,9 +120,9 @@ class MinBinaryHeap {
 
   /* extractMin
     1. swap first and last items if this.#content.length > 1 (or first !== last)
-    2. pop out last item of array and save it in result
+    2. pop out last item of array and save it in min
     3. If length is more than one, bubble the first item down
-    4. Return the result that was saved 
+    4. Return the min that was saved 
     */
   extractMin() {
     if (this.#content.length <= 0) return null //return null if array is empty
@@ -129,13 +132,13 @@ class MinBinaryHeap {
 
     if (firstIndex !== lastIndex) this.#swap(firstIndex, lastIndex)
 
-    const result = this.#content.pop()
+    const min = this.#content.pop()
 
     if (this.#content.length > 0) {
       this.#sinkDown(0)
     }
 
-    return result
+    return min
   }
 
   remove(element) {

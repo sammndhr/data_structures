@@ -55,9 +55,9 @@ var MinBinaryHeap = /*#__PURE__*/function () {
     }
     /* extractMin
       1. swap first and last items if this.#content.length > 1 (or first !== last)
-      2. pop out last item of array and save it in result
+      2. pop out last item of array and save it in min
       3. If length is more than one, bubble the first item down
-      4. Return the result that was saved 
+      4. Return the min that was saved 
       */
 
   }, {
@@ -69,13 +69,13 @@ var MinBinaryHeap = /*#__PURE__*/function () {
           firstIndex = 0;
       if (firstIndex !== lastIndex) _classPrivateMethodGet(this, _swap, _swap2).call(this, firstIndex, lastIndex);
 
-      var result = _classPrivateFieldGet(this, _content).pop();
+      var min = _classPrivateFieldGet(this, _content).pop();
 
       if (_classPrivateFieldGet(this, _content).length > 0) {
         _classPrivateMethodGet(this, _sinkDown, _sinkDown2).call(this, 0);
       }
 
-      return result;
+      return min;
     }
   }, {
     key: "remove",
@@ -171,27 +171,25 @@ var _sinkDown2 = function _sinkDown2(p) {
       lastIndex = _classPrivateFieldGet(this, _content).length - 1;
 
   while (p < lastIndex) {
-    // Info in getting index in bubbleUp
     var r = 2 * p + 2,
         l = r - 1; //Or 2 * p + 1
 
     var swapIndex = null,
-        left = void 0,
-        right = void 0,
+        left = _classPrivateFieldGet(this, _content)[l],
+        right = _classPrivateFieldGet(this, _content)[r],
         min = element; //start out assuming the min between left, right, element is the element
-    // if element has left child, compare
     // if left child < element, set swapIndex to the left index (l) and min to left
 
-    if (l <= lastIndex) {
-      left = _classPrivateFieldGet(this, _content)[l];
-      if (left < element) swapIndex = l;
+
+    if (left < element) {
+      // Don't need to check if left is undefined because undefined < number is always false
+      swapIndex = l;
       min = left;
-    }
+    } // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
 
-    if (r <= lastIndex) {
-      right = _classPrivateFieldGet(this, _content)[r]; // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
 
-      if (right < min) swapIndex = r;
+    if (right < min) {
+      swapIndex = r;
     } // parent is smaller than both left and right child so break
 
 

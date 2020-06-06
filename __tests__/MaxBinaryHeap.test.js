@@ -66,9 +66,46 @@ describe('MaxBinaryHeap', () => {
         expect(max).toBe(10)
         expect(maxHeap.printMaxHeap()).toEqual(heapContent)
       })
+
       test('returns null if size of heap is 0', () => {
         const maxHeap = new MaxBinaryHeap()
         expect(maxHeap.max).toEqual(null)
+      })
+    })
+
+    describe('sinkDown', () => {
+      test('sinks parent down correct path if both left and right child are greater than parent', () => {
+        const maxHeap = new MaxBinaryHeap(),
+          arr = [7, 6, 5, 1, 2, 4]
+        for (const el of arr) {
+          maxHeap.insert(el)
+        }
+        const max = maxHeap.extractMax(),
+          heapContent = [6, 4, 5, 1, 2]
+        expect(max).toBe(7)
+        expect(maxHeap.printMaxHeap()).toEqual(heapContent)
+      })
+      test('sinks parent down to the left if parent < left but parent > right', () => {
+        const maxHeap = new MaxBinaryHeap(),
+          arr = [8, 6, 1, 2]
+        for (const el of arr) {
+          maxHeap.insert(el)
+        }
+        const max = maxHeap.extractMax(),
+          heapContent = [6, 2, 1]
+        expect(max).toBe(8)
+        expect(maxHeap.printMaxHeap()).toEqual(heapContent)
+      })
+      test('sinks parent down to the right if parent > left but parent < right', () => {
+        const maxHeap = new MaxBinaryHeap(),
+          arr = [8, 3, 6, 2, 1, 4]
+        for (const el of arr) {
+          maxHeap.insert(el)
+        }
+        const max = maxHeap.extractMax(),
+          heapContent = [6, 3, 4, 2, 1]
+        expect(max).toBe(8)
+        expect(maxHeap.printMaxHeap()).toEqual(heapContent)
       })
     })
 

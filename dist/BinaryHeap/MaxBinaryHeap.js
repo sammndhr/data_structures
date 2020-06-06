@@ -43,23 +43,23 @@ var MaxBinaryHeap = /*#__PURE__*/function () {
     value: function insert(element) {
       _classPrivateFieldGet(this, _content).push(element);
 
-      _classPrivateMethodGet(this, _bubbleUp, _bubbleUp2).call(this, _classPrivateFieldGet(this, _content).length - 1);
+      _classPrivateMethodGet(this, _bubbleUp, _bubbleUp2).call(this, this.size - 1);
     }
   }, {
     key: "extractMax",
     value: function extractMax() {
-      if (_classPrivateFieldGet(this, _content).length <= 0) return null;
-      var lastIndex = _classPrivateFieldGet(this, _content).length - 1,
+      if (this.size <= 0) return null;
+      var lastIndex = this.size - 1,
           firstIndex = 0;
       if (firstIndex !== lastIndex) _classPrivateMethodGet(this, _swap, _swap2).call(this, firstIndex, lastIndex);
 
-      var result = _classPrivateFieldGet(this, _content).pop();
+      var max = _classPrivateFieldGet(this, _content).pop();
 
-      if (_classPrivateFieldGet(this, _content).length > 0) {
+      if (this.size > 0) {
         _classPrivateMethodGet(this, _sinkDown, _sinkDown2).call(this, 0);
       }
 
-      return result;
+      return max;
     }
   }, {
     key: "remove",
@@ -135,25 +135,24 @@ var _bubbleUp2 = function _bubbleUp2(i) {
 
 var _sinkDown2 = function _sinkDown2(p) {
   var element = _classPrivateFieldGet(this, _content)[p],
-      lastIndex = _classPrivateFieldGet(this, _content).length - 1;
+      lastIndex = this.size - 1;
 
   while (p < lastIndex) {
     var r = 2 * p + 2,
         l = r - 1;
-    var swapIndex = null,
-        left = void 0,
-        right = void 0,
-        min = element;
 
-    if (l <= lastIndex) {
-      left = _classPrivateFieldGet(this, _content)[l];
-      if (left > element) swapIndex = l;
-      min = left;
+    var swapIndex = null,
+        left = _classPrivateFieldGet(this, _content)[l],
+        right = _classPrivateFieldGet(this, _content)[r],
+        max = element;
+
+    if (left > element) {
+      swapIndex = l;
+      max = left;
     }
 
-    if (r <= lastIndex) {
-      right = _classPrivateFieldGet(this, _content)[r];
-      if (right > min) swapIndex = r;
+    if (right > max) {
+      swapIndex = r;
     }
 
     if (swapIndex == null) break;

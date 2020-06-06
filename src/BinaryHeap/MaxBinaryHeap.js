@@ -30,27 +30,24 @@ class MaxBinaryHeap {
 
   #sinkDown(p) {
     const element = this.#content[p],
-      lastIndex = this.#content.length - 1
+      lastIndex = this.size - 1
 
     while (p < lastIndex) {
       const r = 2 * p + 2,
         l = r - 1
 
       let swapIndex = null,
-        left,
-        right,
-        min = element
-      if (l <= lastIndex) {
-        left = this.#content[l]
+        left = this.#content[l],
+        right = this.#content[r],
+        max = element
 
-        if (left > element) swapIndex = l
-        min = left
+      if (left > element) {
+        swapIndex = l
+        max = left
       }
 
-      if (r <= lastIndex) {
-        right = this.#content[r]
-
-        if (right > min) swapIndex = r
+      if (right > max) {
+        swapIndex = r
       }
 
       if (swapIndex == null) break
@@ -78,24 +75,24 @@ class MaxBinaryHeap {
 
   insert(element) {
     this.#content.push(element)
-    this.#bubbleUp(this.#content.length - 1)
+    this.#bubbleUp(this.size - 1)
   }
 
   extractMax() {
-    if (this.#content.length <= 0) return null
+    if (this.size <= 0) return null
 
-    const lastIndex = this.#content.length - 1,
+    const lastIndex = this.size - 1,
       firstIndex = 0
 
     if (firstIndex !== lastIndex) this.#swap(firstIndex, lastIndex)
 
-    const result = this.#content.pop()
+    const max = this.#content.pop()
 
-    if (this.#content.length > 0) {
+    if (this.size > 0) {
       this.#sinkDown(0)
     }
 
-    return result
+    return max
   }
 
   remove(element) {

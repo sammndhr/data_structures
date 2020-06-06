@@ -72,6 +72,41 @@ describe('MinBinaryHeap', () => {
       })
     })
 
+    describe('sinkDown', () => {
+      test('sinks parent down correct path if both left and right child are less than parent', () => {
+        const minHeap = new MinBinaryHeap(),
+          arr = [2, 3, 4, 5]
+        for (const el of arr) {
+          minHeap.insert(el)
+        }
+        const min = minHeap.extractMin(),
+          heapContent = [3, 5, 4]
+        expect(min).toBe(2)
+        expect(minHeap.printMinHeap()).toEqual(heapContent)
+      })
+      test('sinks parent down to the left if parent > left but parent < right', () => {
+        const minHeap = new MinBinaryHeap(),
+          arr = [2, 4, 6, 5]
+        for (const el of arr) {
+          minHeap.insert(el)
+        }
+        const min = minHeap.extractMin(),
+          heapContent = [4, 5, 6]
+        expect(min).toBe(2)
+        expect(minHeap.printMinHeap()).toEqual(heapContent)
+      })
+      test('sinks parent down to the right if parent < left but parent > right', () => {
+        const minHeap = new MinBinaryHeap(),
+          arr = [2, 6, 4, 7, 8, 5]
+        for (const el of arr) {
+          minHeap.insert(el)
+        }
+        const min = minHeap.extractMin(),
+          heapContent = [4, 6, 5, 7, 8]
+        expect(min).toBe(2)
+        expect(minHeap.printMinHeap()).toEqual(heapContent)
+      })
+    })
     describe('remove', () => {
       test('removes the correct item from heap', () => {
         minHeap.remove(2)
