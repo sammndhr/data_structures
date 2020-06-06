@@ -6,6 +6,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
 function _classPrivateFieldGet(receiver, privateMap) { var descriptor = privateMap.get(receiver); if (!descriptor) { throw new TypeError("attempted to get private field on non-instance"); } if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
 
 function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = privateMap.get(receiver); if (!descriptor) { throw new TypeError("attempted to set private field on non-instance"); } if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } return value; }
@@ -17,100 +19,24 @@ var MinBinaryHeap = /*#__PURE__*/function () {
   function MinBinaryHeap() {
     _classCallCheck(this, MinBinaryHeap);
 
+    _sinkDown.add(this);
+
+    _bubbleUp.add(this);
+
+    _swap.add(this);
+
     _content.set(this, {
       writable: true,
       value: void 0
     });
 
     _classPrivateFieldSet(this, _content, []);
-  }
+  } // Private class methods
+
 
   _createClass(MinBinaryHeap, [{
-    key: "_swap",
-    // _methods are helpers. Change to private when private instance methods are supported
-    value: function _swap(i, j) {
-      var temp = _classPrivateFieldGet(this, _content)[i];
-
-      _classPrivateFieldGet(this, _content)[i] = _classPrivateFieldGet(this, _content)[j];
-      _classPrivateFieldGet(this, _content)[j] = temp;
-    }
-    /* bubbleUp 
-      1. Compare item to parent and check if it's less than parent. 
-      2. If it is less than parent, swap it. 
-      3. Now, compare to the new parent and keep swapping until it either reaches the top of the heap or it is >= parent. 
-    */
-
-  }, {
-    key: "_bubbleUp",
-    value: function _bubbleUp(i) {
-      var element = _classPrivateFieldGet(this, _content)[i];
-      /* 
-        indexing from 0
-        p is the index of the parent
-        i is the index of either left or right child
-        l is index of left child
-        r is the index of the right child
-         l = 2p + 1
-        r = 2p + 2
-        p = Math.floor((i-1)/2)
-       */
-
-
-      while (i > 0) {
-        var p = Math.floor((i - 1) / 2),
-            parent = _classPrivateFieldGet(this, _content)[p];
-
-        if (element < parent) {
-          this._swap(p, i); // make sure to change index to that of parent after swapping
-
-
-          i = p;
-        } else {
-          break;
-        }
-      }
-    }
-  }, {
-    key: "_sinkDown",
-    value: function _sinkDown(p) {
-      var element = _classPrivateFieldGet(this, _content)[p],
-          lastIndex = _classPrivateFieldGet(this, _content).length - 1;
-
-      while (p < lastIndex) {
-        // Info in getting index in bubbleUp
-        var r = 2 * p + 2,
-            l = r - 1; //Or 2 * p + 1
-
-        var swapIndex = null,
-            left = void 0,
-            right = void 0,
-            min = element; //start out assuming the min between left, right, element is the element
-        // if element has left child, compare
-        // if left child < element, set swapIndex to the left index (l) and min to left
-
-        if (l <= lastIndex) {
-          left = _classPrivateFieldGet(this, _content)[l];
-          if (left < element) swapIndex = l;
-          min = left;
-        }
-
-        if (r <= lastIndex) {
-          right = _classPrivateFieldGet(this, _content)[r]; // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
-
-          if (right < min) swapIndex = r;
-        } // parent is smaller than both left and right child so break
-
-
-        if (swapIndex == null) break;
-
-        this._swap(p, swapIndex); // set the parent index to the swap index so it will continue to sink down
-
-
-        p = swapIndex;
-      }
-    }
-  }, {
     key: "printMinHeap",
+    // Public class methods
     value: function printMinHeap() {
       console.log(_classPrivateFieldGet(this, _content));
       return _classPrivateFieldGet(this, _content);
@@ -125,7 +51,7 @@ var MinBinaryHeap = /*#__PURE__*/function () {
     value: function insert(element) {
       _classPrivateFieldGet(this, _content).push(element);
 
-      this._bubbleUp(_classPrivateFieldGet(this, _content).length - 1);
+      _classPrivateMethodGet(this, _bubbleUp, _bubbleUp2).call(this, _classPrivateFieldGet(this, _content).length - 1);
     }
     /* extractMin
       1. swap first and last items if this.#content.length > 1 (or first !== last)
@@ -141,12 +67,12 @@ var MinBinaryHeap = /*#__PURE__*/function () {
 
       var lastIndex = _classPrivateFieldGet(this, _content).length - 1,
           firstIndex = 0;
-      if (firstIndex !== lastIndex) this._swap(firstIndex, lastIndex);
+      if (firstIndex !== lastIndex) _classPrivateMethodGet(this, _swap, _swap2).call(this, firstIndex, lastIndex);
 
       var result = _classPrivateFieldGet(this, _content).pop();
 
       if (_classPrivateFieldGet(this, _content).length > 0) {
-        this._sinkDown(0);
+        _classPrivateMethodGet(this, _sinkDown, _sinkDown2).call(this, 0);
       }
 
       return result;
@@ -170,13 +96,13 @@ var MinBinaryHeap = /*#__PURE__*/function () {
         //  3. Then call bubbleUp and sinkDown.
 
 
-        this._swap(i, lastIndex);
+        _classPrivateMethodGet(this, _swap, _swap2).call(this, i, lastIndex);
 
         _classPrivateFieldGet(this, _content).pop();
 
-        this._bubbleUp(i);
+        _classPrivateMethodGet(this, _bubbleUp, _bubbleUp2).call(this, i);
 
-        this._sinkDown(i);
+        _classPrivateMethodGet(this, _sinkDown, _sinkDown2).call(this, i);
 
         break;
       }
@@ -197,5 +123,85 @@ var MinBinaryHeap = /*#__PURE__*/function () {
 }();
 
 var _content = new WeakMap();
+
+var _swap = new WeakSet();
+
+var _bubbleUp = new WeakSet();
+
+var _sinkDown = new WeakSet();
+
+var _swap2 = function _swap2(i, j) {
+  var temp = _classPrivateFieldGet(this, _content)[i];
+
+  _classPrivateFieldGet(this, _content)[i] = _classPrivateFieldGet(this, _content)[j];
+  _classPrivateFieldGet(this, _content)[j] = temp;
+};
+
+var _bubbleUp2 = function _bubbleUp2(i) {
+  var element = _classPrivateFieldGet(this, _content)[i];
+  /* 
+    indexing from 0
+    p is the index of the parent
+    i is the index of either left or right child
+    l is index of left child
+    r is the index of the right child
+     l = 2p + 1
+    r = 2p + 2
+    p = Math.floor((i-1)/2)
+   */
+
+
+  while (i > 0) {
+    var p = Math.floor((i - 1) / 2),
+        parent = _classPrivateFieldGet(this, _content)[p];
+
+    if (element < parent) {
+      _classPrivateMethodGet(this, _swap, _swap2).call(this, p, i); // make sure to change index to that of parent after swapping
+
+
+      i = p;
+    } else {
+      break;
+    }
+  }
+};
+
+var _sinkDown2 = function _sinkDown2(p) {
+  var element = _classPrivateFieldGet(this, _content)[p],
+      lastIndex = _classPrivateFieldGet(this, _content).length - 1;
+
+  while (p < lastIndex) {
+    // Info in getting index in bubbleUp
+    var r = 2 * p + 2,
+        l = r - 1; //Or 2 * p + 1
+
+    var swapIndex = null,
+        left = void 0,
+        right = void 0,
+        min = element; //start out assuming the min between left, right, element is the element
+    // if element has left child, compare
+    // if left child < element, set swapIndex to the left index (l) and min to left
+
+    if (l <= lastIndex) {
+      left = _classPrivateFieldGet(this, _content)[l];
+      if (left < element) swapIndex = l;
+      min = left;
+    }
+
+    if (r <= lastIndex) {
+      right = _classPrivateFieldGet(this, _content)[r]; // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
+
+      if (right < min) swapIndex = r;
+    } // parent is smaller than both left and right child so break
+
+
+    if (swapIndex == null) break;
+
+    _classPrivateMethodGet(this, _swap, _swap2).call(this, p, swapIndex); // set the parent index to the swap index so it will continue to sink down
+
+
+    p = swapIndex;
+  }
+};
 
 module.exports = MinBinaryHeap;

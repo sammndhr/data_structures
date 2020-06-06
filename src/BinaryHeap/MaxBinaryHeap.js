@@ -4,21 +4,14 @@ class MaxBinaryHeap {
     this.#content = []
   }
 
-  get size() {
-    return this.#content.length
-  }
-
-  get max() {
-    return this.size ? this.#content[0] : null
-  }
-  // _methods are helpers. Change to private when private instance methods are supported
-  _swap(i, j) {
+  // Private class methods
+  #swap(i, j) {
     const temp = this.#content[i]
     this.#content[i] = this.#content[j]
     this.#content[j] = temp
   }
 
-  _bubbleUp(i) {
+  #bubbleUp(i) {
     const element = this.#content[i]
 
     while (i > 0) {
@@ -26,7 +19,7 @@ class MaxBinaryHeap {
         parent = this.#content[p]
 
       if (element > parent) {
-        this._swap(p, i)
+        this.#swap(p, i)
 
         i = p
       } else {
@@ -35,7 +28,7 @@ class MaxBinaryHeap {
     }
   }
 
-  _sinkDown(p) {
+  #sinkDown(p) {
     const element = this.#content[p],
       lastIndex = this.#content.length - 1
 
@@ -62,12 +55,22 @@ class MaxBinaryHeap {
 
       if (swapIndex == null) break
 
-      this._swap(p, swapIndex)
+      this.#swap(p, swapIndex)
 
       p = swapIndex
     }
   }
 
+  // getters
+  get size() {
+    return this.#content.length
+  }
+
+  get max() {
+    return this.size ? this.#content[0] : null
+  }
+
+  // public class methods
   printMaxHeap() {
     console.log(this.#content)
     return this.#content
@@ -75,7 +78,7 @@ class MaxBinaryHeap {
 
   insert(element) {
     this.#content.push(element)
-    this._bubbleUp(this.#content.length - 1)
+    this.#bubbleUp(this.#content.length - 1)
   }
 
   extractMax() {
@@ -84,12 +87,12 @@ class MaxBinaryHeap {
     const lastIndex = this.#content.length - 1,
       firstIndex = 0
 
-    if (firstIndex !== lastIndex) this._swap(firstIndex, lastIndex)
+    if (firstIndex !== lastIndex) this.#swap(firstIndex, lastIndex)
 
     const result = this.#content.pop()
 
     if (this.#content.length > 0) {
-      this._sinkDown(0)
+      this.#sinkDown(0)
     }
 
     return result
@@ -106,10 +109,10 @@ class MaxBinaryHeap {
         break
       }
 
-      this._swap(i, lastIndex)
+      this.#swap(i, lastIndex)
       this.#content.pop()
-      this._bubbleUp(i)
-      this._sinkDown(i)
+      this.#bubbleUp(i)
+      this.#sinkDown(i)
       break
     }
   }
