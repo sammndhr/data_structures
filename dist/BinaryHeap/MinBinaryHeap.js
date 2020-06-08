@@ -109,6 +109,7 @@ var MinBinaryHeap = /*#__PURE__*/function () {
     }
   }, {
     key: "size",
+    // Getters
     get: function get() {
       return _classPrivateFieldGet(this, _content).length;
     }
@@ -172,23 +173,23 @@ var _sinkDown2 = function _sinkDown2(p) {
 
   while (p < lastIndex) {
     var r = 2 * p + 2,
-        l = r - 1; //Or 2 * p + 1
+        l = r - 1,
+        //Or 2 * p + 1,
+    left = _classPrivateFieldGet(this, _content)[l],
+        right = _classPrivateFieldGet(this, _content)[r];
 
     var swapIndex = null,
-        left = _classPrivateFieldGet(this, _content)[l],
-        right = _classPrivateFieldGet(this, _content)[r],
         min = element; //start out assuming the min between left, right, element is the element
     // if left child < element, set swapIndex to the left index (l) and min to left
 
-
-    if (left < element) {
+    if (l <= lastIndex && left < min) {
       // Don't need to check if left is undefined because undefined < number is always false
       swapIndex = l;
       min = left;
     } // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
 
 
-    if (right < min) {
+    if (r <= lastIndex && right < min) {
       swapIndex = r;
     } // parent is smaller than both left and right child so break
 

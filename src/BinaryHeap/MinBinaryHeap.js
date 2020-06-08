@@ -16,7 +16,7 @@ class MinBinaryHeap {
     this.#content[i] = this.#content[j]
     this.#content[j] = temp
   }
-  /* bubbleUp 
+  /* bubbleUp - Also called heapify up or swim up
     1. Compare item to parent and check if it's less than parent. 
     2. If it is less than parent, swap it. 
     3. Now, compare to the new parent and keep swapping until it either reaches the top of the heap or it is >= parent. 
@@ -47,7 +47,7 @@ class MinBinaryHeap {
       }
     }
   }
-  /* sinkDown
+  /* sinkDown - Also called heapify down
     1. Check the minimum value between the parent, left child and right child. 
     2. If parent is the min, you don't need to sink it down anymore. 
     3. If either child is minimum, swap the parent with the minimum child.
@@ -59,22 +59,22 @@ class MinBinaryHeap {
 
     while (p < lastIndex) {
       const r = 2 * p + 2,
-        l = r - 1 //Or 2 * p + 1
+        l = r - 1, //Or 2 * p + 1,
+        left = this.#content[l],
+        right = this.#content[r]
 
       let swapIndex = null,
-        left = this.#content[l],
-        right = this.#content[r],
         min = element //start out assuming the min between left, right, element is the element
 
       // if left child < element, set swapIndex to the left index (l) and min to left
-      if (left < element) {
+      if (l <= lastIndex && left < min) {
         // Don't need to check if left is undefined because undefined < number is always false
         swapIndex = l
         min = left
       }
 
       // compare the right to the min so far to make sure the min of the three items gets bubbled up while the parent gets sunk
-      if (right < min) {
+      if (r <= lastIndex && right < min) {
         swapIndex = r
       }
 
@@ -88,13 +88,6 @@ class MinBinaryHeap {
   }
 
   // Getters
-  get size() {
-    return this.#content.length
-  }
-
-  get min() {
-    return this.size ? this.#content[0] : null
-  }
   get size() {
     return this.#content.length
   }

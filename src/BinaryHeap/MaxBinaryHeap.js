@@ -11,6 +11,7 @@ class MaxBinaryHeap {
     this.#content[j] = temp
   }
 
+  // Also called heapify up or swim up
   #bubbleUp(i) {
     const element = this.#content[i]
 
@@ -28,25 +29,26 @@ class MaxBinaryHeap {
     }
   }
 
+  // Also called heapify down
   #sinkDown(p) {
     const element = this.#content[p],
       lastIndex = this.size - 1
 
     while (p < lastIndex) {
       const r = 2 * p + 2,
-        l = r - 1
+        l = r - 1,
+        left = this.#content[l],
+        right = this.#content[r]
 
       let swapIndex = null,
-        left = this.#content[l],
-        right = this.#content[r],
         max = element
 
-      if (left > element) {
+      if (l <= lastIndex && left > max) {
         swapIndex = l
         max = left
       }
 
-      if (right > max) {
+      if (r <= lastIndex && right > max) {
         swapIndex = r
       }
 

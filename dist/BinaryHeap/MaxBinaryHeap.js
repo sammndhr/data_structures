@@ -139,19 +139,19 @@ var _sinkDown2 = function _sinkDown2(p) {
 
   while (p < lastIndex) {
     var r = 2 * p + 2,
-        l = r - 1;
+        l = r - 1,
+        left = _classPrivateFieldGet(this, _content)[l],
+        right = _classPrivateFieldGet(this, _content)[r];
 
     var swapIndex = null,
-        left = _classPrivateFieldGet(this, _content)[l],
-        right = _classPrivateFieldGet(this, _content)[r],
         max = element;
 
-    if (left > element) {
+    if (l <= lastIndex && left > max) {
       swapIndex = l;
       max = left;
     }
 
-    if (right > max) {
+    if (r <= lastIndex && right > max) {
       swapIndex = r;
     }
 
