@@ -15,17 +15,13 @@ var _require = require('./BinaryTreeTraversal'),
     DFSIterative = _require.DFSIterative;
 
 var BinarySearchTree = function () {
-  var findMinNode = function findMinNode(node) {
-    if (node.left === null) return node;else return findMinNode(node.left);
-  };
-
-  var TreeNode = function TreeNode(val) {
+  var TreeNode = function TreeNode(key) {
     var left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     var right = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
     _classCallCheck(this, TreeNode);
 
-    this.val = val;
+    this.key = key;
     this.left = left;
     this.right = right;
   };
@@ -44,81 +40,198 @@ var BinarySearchTree = function () {
 
     _createClass(BinarySearchTree, [{
       key: "insert",
-      value: function insert(val) {
-        var recursiveInsertNode = function recursiveInsertNode(node, newNode) {
-          if (newNode.val < node.val) {
-            if (node.left === null) node.left = newNode;else recursiveInsertNode(node.left, newNode);
+
+      /* Creates a TreeNode and inserts it while preserving BST properties into the tree.  */
+      value: function insert(key) {
+        var newNode = new TreeNode(key);
+
+        if (this.root === null) {
+          _classPrivateFieldSet(this, _root, newNode);
+
+          return newNode;
+        }
+
+        var prev = null,
+            curr = this.root;
+
+        while (curr !== null) {
+          if (key === curr.key) return 'Key Already Exists!';else if (key < curr.key) {
+            prev = curr;
+            curr = curr.left;
           } else {
-            if (node.right === null) node.right = newNode;else recursiveInsertNode(node.right, newNode);
+            prev = curr;
+            curr = curr.right;
           }
-        };
+        }
 
-        var newNode = new TreeNode(val);
-        if (_classPrivateFieldGet(this, _root) === null) _classPrivateFieldSet(this, _root, newNode);else recursiveInsertNode(_classPrivateFieldGet(this, _root), newNode);
+        if (key < prev.key) prev.left = newNode;
+        if (key > prev.key) prev.right = newNode;
+        return _classPrivateFieldGet(this, _root);
       }
-    }, {
-      key: "remove",
-      value: function remove(val) {
-        var removeNode = function removeNode(node, val) {
-          if (node === null) return null;
-
-          if (val < node.val) {
-            node.left = removeNode(node.left, val);
-            return node;
-          }
-
-          if (val > node.val) {
-            node.right = removeNode(node.right, val);
-            return node;
-          } // If val matches node.val
-
-
-          if (val === node.val) {
-            // if node to delete doesn't have any children
-            if (node.left === null && node.right === null) {
-              node = null;
-              return node;
-            } // if node to delete has one right child
-
-
-            if (node.left === null) {
-              node = node.right;
-              return node;
-            } // if node to delete has one left child
-
-
-            if (node.right === null) {
-              node = node.left;
-              return node;
-            } // Deleting node with two children
-            // find min node in right subtree. This will be a terminal node
-            // traverse down right subtree and change the node.val to the min node val
-            // Then call removeNode on the right subtree with the min.node val to delete the terminal node
-
-
-            var sub = findMinNode(node.right);
-            node.val = sub.val;
-            node.right = removeNode(node.right, sub.val);
-            return node;
-          }
-        };
-
-        _classPrivateFieldSet(this, _root, removeNode(_classPrivateFieldGet(this, _root), val));
-      } // searches tree for specified val and returns the node if found, null otherwise
+      /* Searches the tree for the given key.  */
 
     }, {
       key: "search",
-      value: function search(val) {
-        var recursiveSearch = function recursiveSearch(node, val) {
-          if (node === null) return null;
-          if (val < node.val) return recursiveSearch(node.left, val);
-          if (val > node.val) return recursiveSearch(node.right, val);
-          if (val === node.val) return node;
-        };
+      value: function search(key) {
+        var curr = this.root;
 
-        return recursiveSearch(_classPrivateFieldGet(this, _root), val);
+        while (curr !== null) {
+          if (key === curr.key) return curr;else if (key < curr.key) curr = curr.left;else curr = curr.right;
+        }
+
+        return null;
+      }
+      /* Finds the minimum key in the tree. */
+
+    }, {
+      key: "findMin",
+      value: function findMin() {
+        var node = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.root;
+        if (node === null) return null;
+        var curr = node;
+
+        while (curr.left !== null) {
+          curr = curr.left;
+        }
+
+        return curr.key;
+      }
+      /* Finds the maximum key in the tree. */
+
+    }, {
+      key: "findMax",
+      value: function findMax() {
+        var node = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.root;
+        if (node === null) return null;
+        var curr = node;
+
+        while (curr.right !== null) {
+          curr = curr.right;
+        }
+
+        return curr.key;
+      }
+      /* Finds the successor of the given key.  */
+
+    }, {
+      key: "successor",
+      value: function successor(key) {
+        var predecessor = this.search(key);
+        if (this.root === null || !predecessor) return null;
+
+        if (predecessor.right !== null) {
+          var _curr = predecessor.right;
+
+          while (_curr.left !== null) {
+            _curr = _curr.left;
+          }
+
+          return _curr;
+        }
+
+        var ancestor = null,
+            curr = this.root;
+
+        while (curr.key !== predecessor.key) {
+          if (predecessor.key < curr.key) {
+            ancestor = curr;
+            curr = curr.left;
+          } else curr = curr.right;
+
+          if (ancestor) console.log(ancestor.key);
+        }
+
+        return ancestor;
+      }
+      /* Finds the predecessor of the given key.  */
+
+    }, {
+      key: "predecessor",
+      value: function predecessor(key) {
+        var successor = this.search(key);
+        if (this.root === null || !successor) return null;
+
+        if (successor.left !== null) {
+          var _curr2 = successor.left;
+
+          while (_curr2.right !== null) {
+            _curr2 = _curr2.right;
+          }
+
+          return _curr2;
+        }
+
+        var ancestor = null,
+            curr = this.root;
+
+        while (curr.key !== successor.key) {
+          if (successor.key > curr.key) {
+            ancestor = curr;
+            curr = curr.right;
+          } else curr = curr.left;
+
+          if (ancestor) console.log(ancestor.key);
+        }
+
+        return ancestor;
+      }
+      /* Deletes the node with given key from tree. */
+
+    }, {
+      key: "delete",
+      value: function _delete(key) {
+        function deleteNode(key, root) {
+          var curr = root,
+              prev = null;
+
+          while (curr !== null) {
+            if (key === curr.key) break;else if (key < curr.key) {
+              prev = curr;
+              curr = curr.left;
+            } else {
+              prev = curr;
+              curr = curr.right;
+            }
+          } // key doesn't exist
+
+
+          if (curr === null) return root; // Deletion case 1: Node has NO children (leaf node)
+
+          if (curr.left === null && curr.right === null) {
+            if (prev === null) return null;
+            if (curr.key === prev.left.key) prev.left = null;else prev.right = null;
+          } // Deletion case 2: Node has one child
+
+
+          var child = null;
+          if (curr.left === null && curr.right !== null) child = curr.right;
+          if (curr.right === null && curr.left !== null) child = curr.left;
+
+          if (child !== null) {
+            if (prev === null) return child;
+            if (curr.key === prev.left.key) prev.left = child;else prev.right = child;
+          } // Deletion case 3: Node has two children.
+
+
+          if (curr.left !== null && curr.right !== null) {
+            var succ = curr.right;
+            prev = curr;
+
+            while (succ.left !== null) {
+              prev = succ;
+              succ = succ.left;
+            }
+
+            curr.key = succ.key;
+            if (succ === prev.left) prev.left = succ.right;else prev.right = succ.right;
+          }
+
+          return root;
+        }
+
+        _classPrivateFieldSet(this, _root, deleteNode(key, this.root));
       } // tree traversals
-      // returns array of vals
+      // returns array of keys
 
     }, {
       key: "printInOrder",
