@@ -8,7 +8,7 @@ test('creates a new instance of BinarySearchTree', () => {
 test('gets root of binary search tree', () => {
   const bst = new BinarySearchTree()
   bst.insert(1)
-  expect(bst.root).toEqual({ val: 1, left: null, right: null })
+  expect(bst.root).toEqual({ key: 1, left: null, right: null })
 })
 
 describe('insert', () => {
@@ -17,8 +17,8 @@ describe('insert', () => {
     bst.insert(3)
     bst.insert(1)
     const root = {
-      val: 3,
-      left: { val: 1, left: null, right: null },
+      key: 3,
+      left: { key: 1, left: null, right: null },
       right: null,
     }
     expect(bst.root).toEqual(root)
@@ -64,7 +64,7 @@ describe('scoped bst tree', () => {
   describe('search', () => {
     test('searches tree and returns the node if the specified value is found', () => {
       const valToSearch = 4,
-        foundNode = { val: 4, left: null, right: null }
+        foundNode = { key: 4, left: null, right: null }
       expect(bst.search(valToSearch)).toEqual(foundNode)
     })
     test('searches tree and returns null if the specified value is not found', () => {
@@ -74,42 +74,42 @@ describe('scoped bst tree', () => {
     })
   })
 
-  describe('remove', () => {
-    test('searches and removes the correct node if the specified value is found', () => {
-      const valToRemove = 1,
+  describe('delete', () => {
+    test('searches and deletes the correct node if the specified value is found', () => {
+      const valToDelete = 1,
         root = {
-          val: 3,
+          key: 3,
           left: {
-            val: 2,
-            left: { val: 0, left: null, right: null },
+            key: 2,
+            left: { key: 0, left: null, right: null },
             right: null,
           },
           right: {
-            val: 5,
-            left: { val: 4, left: null, right: null },
-            right: { val: 6, left: null, right: null },
+            key: 5,
+            left: { key: 4, left: null, right: null },
+            right: { key: 6, left: null, right: null },
           },
         }
-      bst.remove(valToRemove)
+      bst.delete(valToDelete)
 
       expect(bst.root).toEqual(root)
     })
     test('does not alter the tree if specified value to delete is not found', () => {
-      const valToRemove = 11,
+      const valToDelete = 11,
         root = {
-          val: 3,
+          key: 3,
           left: {
-            val: 1,
-            left: { val: 0, left: null, right: null },
-            right: { val: 2, left: null, right: null },
+            key: 1,
+            left: { key: 0, left: null, right: null },
+            right: { key: 2, left: null, right: null },
           },
           right: {
-            val: 5,
-            left: { val: 4, left: null, right: null },
-            right: { val: 6, left: null, right: null },
+            key: 5,
+            left: { key: 4, left: null, right: null },
+            right: { key: 6, left: null, right: null },
           },
         }
-      bst.remove(valToRemove)
+      bst.delete(valToDelete)
 
       expect(bst.root).toEqual(root)
     })

@@ -8,7 +8,7 @@ const BFS = function (root) {
 
   while (!queue.isEmpty()) {
     const node = queue.dequeue()
-    res.push(node.val)
+    res.push(node.key)
     if (node.left) queue.enqueue(node.left)
     if (node.right) queue.enqueue(node.right)
   }
@@ -21,7 +21,7 @@ const DFSRecursive = {
     function recurse(node) {
       if (node !== null) {
         recurse(node.left)
-        res.push(node.val)
+        res.push(node.key)
         recurse(node.right)
       }
     }
@@ -33,7 +33,7 @@ const DFSRecursive = {
     const res = []
     function recurse(node) {
       if (node !== null) {
-        res.push(node.val)
+        res.push(node.key)
         recurse(node.left)
         recurse(node.right)
       }
@@ -48,7 +48,7 @@ const DFSRecursive = {
       if (node !== null) {
         recurse(node.left)
         recurse(node.right)
-        res.push(node.val)
+        res.push(node.key)
       }
     }
     recurse(root)
@@ -69,7 +69,7 @@ const DFSIterative = {
         curr = curr.left
       } else {
         curr = stack.pop()
-        res.push(curr.val)
+        res.push(curr.key)
         curr = curr.right
       }
     }
@@ -85,7 +85,7 @@ const DFSIterative = {
 
     while (!stack.isEmpty()) {
       curr = stack.pop()
-      res.push(curr.val)
+      res.push(curr.key)
       if (curr.right !== null) stack.push(curr.right)
       if (curr.left !== null) stack.push(curr.left)
     }
@@ -107,7 +107,7 @@ const DFSIterative = {
     }
     while (!stack2.isEmpty()) {
       curr = stack2.pop()
-      res.push(curr.val)
+      res.push(curr.key)
     }
     return res
   },
