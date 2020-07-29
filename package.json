@@ -10,7 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrinalini-m/data_structures.git"
+    "url": "git+https://github.com/mrinalini-m/data_structures.git",
+    "directory": "@sam/data-structures"
   },
   "author": "Mrinalini 'Sam' Manandhar",
   "license": "MIT",
